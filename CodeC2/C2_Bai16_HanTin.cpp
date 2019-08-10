@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include<iostream>
 #include<iomanip>
+
 using namespace std;
 
 struct Node {
@@ -23,7 +24,7 @@ void insertFirst(Node *&a, int x)
 	a = p;
 }
 
-void insertLast( Node *&a,int x)
+void insertLast(Node *&a, int x)
 {
 	Node *p;
 	p = new Node;
@@ -93,59 +94,61 @@ void processList(Node *a)
 }
 
 
-//CAU 16.1: Xuat cac phan tu thuoc tap hop cua hai danh sach
-void phepGiao(Node *&a, Node *&b)
+//CAU 16.2: Xuat cac phan tu thuoc tap hop giao cua hai danh sach
+void phepGiao(Node *&a1, Node *&b1)
 {
-	
-	bool test1 = false, test2 = false;
+	Node *at, *bt;
+	at = a1;
+	bt = b1;
 
-	while (b != NULL) 
+	bool flag = false;
+
+	while (bt != NULL)
 	{
-		while (a != NULL) 
+		while (at != NULL)
 		{
-			if (a->info == b->info) {
-				test1 = true;
-				test2 = true;
-			}
-			if (test1 == true) {
-				test1 = false;
-				cout << setw(4) << a->info;	
+			if (at->info == bt->info) {
+				flag = true;
+				cout << at->info << " ";
+				at = at->link;
 				break;
 			}
-			else {
-				test1 = false;
-			}
-			a = a->link;
+			at = at->link;
 		}
-		b = b->link;
+		bt = bt->link;
 	}
-	if (test2 == false) {
+	if (flag == false) {
 		cout << "Khong co phan tu thuoc tap hop giao cua hai ds.\n";
 	}
 }
 
-void phepBu(Node *&a, Node *&b)
+//16.3 
+void phepBu(Node *&a1, Node *&b1)
 {
-	bool test = false;
+	Node *at, *bt;
+	at = a1;
+	bt = b1;
+	bool flag = false;
 
-	while(a != NULL)
+	while (at != NULL)
 	{
-		while (b != NULL) {
-			if (a->info != b->info) /* Chi can co mot phan tu bi trung thi break */
+		while (bt != NULL) {
+			if (bt->info == at->info) /* Chi can co mot phan tu bi trung thi break */
 			{
-				test = true;
+				flag = true;
+				bt = bt->link;
 				break;
 			}
+			bt = bt->link;
 		}
-		if (test == true) {
-			cout << setw(4) << a->info;
-			test = false;
-		}	
+		if (flag == false) {
+			cout << at->info;
+		}
 		else {
-			test = false;
+			flag = false;
 		}
-		a = a->link;
-			
+		at = at->link;
+		bt = b1;
 	}
 }
 
@@ -188,14 +191,14 @@ int main()
 				case 'a': case 'A':
 					cout << "Vui long nhap gia tri x = ";
 					cin >> n;
-					insertFirst(a,n);
+					insertFirst(a, n);
 					cout << "Danh sach sau khi them la: \n";
 					processList(a);
 					break;
 				case 'b': case 'B':
 					cout << "Vui long nhap gia tri x = ";
 					cin >> n;
-					insertLast(a,n);
+					insertLast(a, n);
 					cout << "Danh sach sau khi them la: \n";
 					processList(a);
 					break;
@@ -233,8 +236,8 @@ int main()
 					break;
 				}
 			} while (x != 'e' && x != 'E');
-			
-			
+
+
 			cout << endl;
 
 			// Danh sach 2
@@ -254,14 +257,14 @@ int main()
 				case 'a': case 'A':
 					cout << "Vui long nhap gia tri x = ";
 					cin >> n;
-					insertFirst(b,n);
+					insertFirst(b, n);
 					cout << "Danh sach sau khi them la: \n";
 					processList(b);
 					break;
 				case 'b': case 'B':
 					cout << "Vui long nhap gia tri x = ";
 					cin >> n;
-					insertLast(b,n);
+					insertLast(b, n);
 					cout << "Danh sach sau khi them la: \n";
 					processList(b);
 					break;
@@ -316,12 +319,7 @@ int main()
 			cout << endl;
 			break;
 
-		/*case 4:
-			cout << "Danh sach cac phan tu thuoc TAP GIAO cua A va B la:" << endl;
-			PhepGiao(a, b);
-			cout << endl;
-			break;
-		/*case 5:
+		case 4:
 			cout << "a. Phan bu cua B trong A (A\B)" << endl;
 			cout << "b. Phan bu cua A trong B (B\A)" << endl;
 			cout << endl;
@@ -331,18 +329,18 @@ int main()
 			if (x == 'a')
 			{
 				cout << "Danh sach cac phan tu thuoc phan bu cua A va B (A\\B) la:" << endl;
-				PhepBu(a, b, n, m);
+				phepBu(a, b);
 				cout << endl;
 			}
 			if (x == 'b')
 			{
-				cout << "Danh sach cac phan tu thuoc phan bu cua A va B (A\\B) la:" << endl;
-				PhepBu(b, a, m, n);
+				cout << "Danh sach cac phan tu thuoc phan bu cua B va A (B\\A) la:" << endl;
+				phepBu(b, a);
 				cout << endl;
 			}
 
 			cout << endl;
-			break;*/
+			break;
 		case 5:
 			cout << "Goodbye...!" << endl;
 
